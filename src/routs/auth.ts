@@ -55,7 +55,15 @@ userSignIn.post('/', async (req: Request, res: Response) => {
     if (!secreat) {
         return res.status(500).json({ error: 'Server error' });
     }
-    const token = jwt.sign({ id: existingUser._id }, secreat, { expiresIn: '1h' });
+    const token = jwt.sign({ id: existingUser._id ,username:username}, secreat, { expiresIn: '1h' });
+
+    res.cookie('token', token, {
+        httpOnly: true,
+        maxAge: 3600000, // 1 hour
+    });
+    // Set the token in the response headers
+
+
     return res.status(200).json({ token });
 });
 
@@ -80,7 +88,13 @@ adminSignIn.post('/', async (req: Request, res: Response) => {
     if (!secreat) {
         return res.status(500).json({ error: 'Server error' });
     }
-    const token = jwt.sign({ username }, secreat, { expiresIn: '1h' });
+    const token = jwt.sign({ username:curUsername }, secreat, { expiresIn: '1h' });
+
+    res.cookie('token', token, {
+        httpOnly: true,
+        maxAge: 3600000, // 1 hour
+    });
+    // Set the token in the response headers
     return res.status(200).json({ token });
 });
 

@@ -20,7 +20,7 @@ const userschema = new Schema({
     password: { type: String, required: true },
     travelplans: [
         {
-        travelplanid: { type: Schema.Types.ObjectId, required: true , ref: 'TravelPlan'},
+        travelplanid: { type: Number, required: true , ref: 'TravelPlan'},
         startdate: { type: Date, required: true },
         startlocation: { type: String, required: true }
         }
@@ -29,7 +29,7 @@ const userschema = new Schema({
 
 const travelschema = new Schema({
     travelplanid: { type: Number, required: true ,unique: true },
-    destinaiton : { type: String, required: true },
+    destination : { type: String, required: true },
     price : { type: Number, required: true },
     name : { type: String, required: true },
     description : { type: String, required: true }
